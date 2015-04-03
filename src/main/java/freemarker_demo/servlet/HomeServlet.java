@@ -19,6 +19,8 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker_demo.directive.UpperDirective;
+import freemarker_demo.wrapper.MyAppObjectWrapper;
 
 public class HomeServlet extends HttpServlet {
 
@@ -44,9 +46,10 @@ public class HomeServlet extends HttpServlet {
 		latest.put("url", "products/greenmouse.html");
 		latest.put("name", "green mouse");  
 		Configuration cfg = (Configuration) super.getServletContext().getAttribute(FREEMARKER_CFG);
-		Template temp = cfg.getTemplate("test.ftl");  
-
-		
+		cfg.setObjectWrapper(new MyAppObjectWrapper(cfg.getIncompatibleImprovements()));  
+		//		Template temp = cfg.getTemplate("test.ftl");  
+		Template temp = cfg.getTemplate("upper.ftl");  
+		root.put("upper", new UpperDirective());  
 		try {
 			temp.process(root, pw);
 		} catch (TemplateException e) {
@@ -79,7 +82,8 @@ public class HomeServlet extends HttpServlet {
 			// Sets how errors will appear.
 			// During web page *development* TemplateExceptionHandler.HTML_DEBUG_HANDLER is better.
 //			TemplateExceptionHandler.RETHROW_HANDLER
-			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);  
+			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER); 
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
