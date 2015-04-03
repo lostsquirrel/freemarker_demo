@@ -17,13 +17,4 @@
 		<url-pattern>/servlet/HomeServlet</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-		<servlet-name>user-servlet</servlet-name>
-		<servlet-class>freemarker_demo.servlet.XServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>user-servlet</servlet-name>
-		<url-pattern>/x</url-pattern>
-	</servlet-mapping> 
 </web-app>
