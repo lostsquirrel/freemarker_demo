@@ -19,7 +19,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import freemarker_demo.directive.UpperDirective;
+import freemarker_demo.directive.TemplateBlockDirective;
 import freemarker_demo.wrapper.MyAppObjectWrapper;
 
 public class HomeServlet extends HttpServlet {
@@ -47,9 +47,12 @@ public class HomeServlet extends HttpServlet {
 		latest.put("name", "green mouse");  
 		Configuration cfg = (Configuration) super.getServletContext().getAttribute(FREEMARKER_CFG);
 		cfg.setObjectWrapper(new MyAppObjectWrapper(cfg.getIncompatibleImprovements()));  
-		//		Template temp = cfg.getTemplate("test.ftl");  
-		Template temp = cfg.getTemplate("upper.ftl");  
-		root.put("upper", new UpperDirective());  
+		//		Template temp = cfg.getTemplate("test.ftl"); 
+		String tn = req.getParameter("x");
+		Template temp = cfg.getTemplate(String.format("%s.ftl", tn));  
+		root.put("tmbk", new TemplateBlockDirective()); 
+//		Template temp = cfg.getTemplate("repeat.ftl");  
+//		root.put("repeat", new RepeatDirective());  
 		try {
 			temp.process(root, pw);
 		} catch (TemplateException e) {
