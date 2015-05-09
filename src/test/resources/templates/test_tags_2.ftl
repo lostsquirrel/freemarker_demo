@@ -1,4 +1,6 @@
-<#escape x as x?html>
+<#-- Now you can't use <#macro upper>, but instead you can: -->
+<#assign upper = "freemarker_demo.test.tags.UpperDirective"?new()>  
+
 foo
 <@upper>
   bar
@@ -8,6 +10,4 @@ foo
   </#list>
   baaz
 </@upper>
-wombat  
-
-</#escape>
+wombat 
