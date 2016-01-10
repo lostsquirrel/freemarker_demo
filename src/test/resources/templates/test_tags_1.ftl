@@ -9,8 +9,7 @@ foo
 </@upper>
 wombat 
 
-<h3>repeat</h3>
-<hr />
+----repeat-----
 <#assign x = 1>
 
 <@repeat count=4>
@@ -25,3 +24,6 @@ wombat
 <@repeat count=3; cnt>
   ${cnt}. Test
 </@repeat>  
+
+----shared variable-----
+${company}

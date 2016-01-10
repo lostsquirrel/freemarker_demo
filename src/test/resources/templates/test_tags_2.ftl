@@ -11,3 +11,6 @@ foo
   baaz
 </@upper>
 wombat 
+
+----shared variable-----
+${company}

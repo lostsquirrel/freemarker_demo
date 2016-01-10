@@ -1,5 +1,7 @@
 package freemarker_demo.test;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -16,6 +18,7 @@ import org.junit.Test;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateModelException;
 import freemarker_demo.test.method.IndexOfMethod;
 import freemarker_demo.test.tags.RepeatDirective;
 import freemarker_demo.test.tags.UpperDirective;
@@ -29,6 +32,11 @@ public class GettingStartedTest {
 	private Map<String, Object> root = new HashMap<String, Object>();
 	
 	private static final Log log = LogFactory.getLog(GettingStartedTest.class);
+	
+	@Test
+	public void testSharedVariable() throws Exception {
+		this.template = "test_shared_variable";
+	}
 	
 	@Test
 	public void testTags2() throws Exception {
@@ -76,7 +84,7 @@ public class GettingStartedTest {
 		temp.process(root, out);
 	}
 	@Before
-	public void initConfig() {
+	public void initConfig() throws TemplateModelException {
 		// Create your Configuration instance, and specify if up to what FreeMarker
 		// version (here 2.3.22) do you want to apply the fixes that are not 100%
 		// backward-compatible. See the Configuration JavaDoc for details.
@@ -100,6 +108,9 @@ public class GettingStartedTest {
 		// Sets how errors will appear.
 		// During web page *development* TemplateExceptionHandler.HTML_DEBUG_HANDLER is better.
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER); 
+		
+		//Shared variables
+		cfg.setSharedVariable("company", "Foo Inc.");
 		
 		this.cfg = cfg;
 	}

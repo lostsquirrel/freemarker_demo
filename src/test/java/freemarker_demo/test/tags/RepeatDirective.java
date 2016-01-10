@@ -18,8 +18,10 @@ import freemarker.template.TemplateNumberModel;
 public class RepeatDirective implements TemplateDirectiveModel {
 
 	private static final String PARAM_NAME_COUNT = "count";
+	
 	private static final String PARAM_NAME_HR = "hr";
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
@@ -40,14 +42,14 @@ public class RepeatDirective implements TemplateDirectiveModel {
 
 			if (paramName.equals(PARAM_NAME_COUNT)) {
 				if (!(paramValue instanceof TemplateNumberModel)) {
-					throw new TemplateModelException("The \"" + PARAM_NAME_HR
+					throw new TemplateModelException("The \"" + PARAM_NAME_COUNT
 							+ "\" parameter " + "must be a number.");
 				}
 				countParam = ((TemplateNumberModel) paramValue).getAsNumber()
 						.intValue();
 				countParamSet = true;
 				if (countParam < 0) {
-					throw new TemplateModelException("The \"" + PARAM_NAME_HR
+					throw new TemplateModelException("The \"" + PARAM_NAME_COUNT
 							+ "\" parameter " + "can't be negative.");
 				}
 			} else if (paramName.equals(PARAM_NAME_HR)) {
